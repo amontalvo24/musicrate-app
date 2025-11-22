@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
-import AlbumRow from "../../components/AlbumRow";
 import HomeScreenHeader from "../../components/HomeScreenHeader";
+import AlbumRow from "../../components/ui/AlbumRow";
 
 export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState("Albums");
