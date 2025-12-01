@@ -1,51 +1,66 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import HomeScreenHeader from "../components/HomeScreenHeader";
-import AlbumRow from "../components/ui/AlbumRow";
+import AlbumRow, { Album } from "../components/ui/AlbumRow";
 import FloatingMenu from "../components/ui/FloatingMenu";
 
-
+const albums: Album[] = [
+  {
+    id: "dune",
+    title: "Dune",
+    artist: "Zendaya",
+    year: "2025",
+    duration: "129 mins",
+    description:
+      "A moody, cinematic soundscape that blends orchestral textures with synth-driven tension...",
+    coverUrl: "https://via.placeholder.com/300x300.png?text=Dune",
+  },
+  {
+    id: "co",
+    title: "Channel Orange",
+    artist: "Frank Ocean",
+    year: "2012",
+    coverUrl: "https://via.placeholder.com/300x300.png?text=CO",
+  },
+  // add more albums…
+];
 
 export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState("Albums");
-  
-   const albums = ["A", "B", "C", "D", "E"];
 
   return (
-    <View style={styles.container}>
-      <ScrollView 
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-      >
-        <HomeScreenHeader activeTab={activeTab} onTabChange={setActiveTab} />
+    <ScrollView style={{ flex: 1, backgroundColor: "#181B20" }}>
+      <HomeScreenHeader activeTab={activeTab} onTabChange={setActiveTab} />
 
-        {activeTab === "Albums" && (
-          <View style={styles.sections}>
-            <AlbumRow title="What your friends are listening" albums={albums} />
-            <AlbumRow title="New Releases" albums={albums} />
-            <AlbumRow title="Your next listen" albums={albums} />
-          </View>
-        )}
+      {activeTab === "Albums" && (
+        <View
+          style={{
+            paddingHorizontal: 20,
+            paddingTop: 16,
+            paddingBottom: 40,
+          }}
+        >
+          <AlbumRow title="What your friends are listening" albums={albums} />
+          <AlbumRow title="New Releases" albums={albums} />
+          <AlbumRow title="Your next listen" albums={albums} />
+        </View>
+      )}
 
-        {activeTab === "Activity" && (
-          <Text style={styles.text}>Activity content...</Text>
-        )}
+      {activeTab === "Activity" && (
+        <Text style={{ color: "white", margin: 20 }}>Activity content...</Text>
+      )}
 
-        {activeTab === "Lists" && (
-          <Text style={styles.text}>Lists content...</Text>
-        )}
-      </ScrollView>
+      {activeTab === "Lists" && (
+        <Text style={{ color: "white", margin: 20 }}>Lists content...</Text>
+      )}
 
-      {/* Floating menu stays above everything */}
       <FloatingMenu
+        onProfilePress={() => console.log("Profile pressed")}
         onLogReviewPress={() => console.log("Log/Review pressed")}
         onUsersPress={() => console.log("Users pressed")}
-        onProfilePress={() => console.log("Profile pressed")}
-
       />
-    </View>
+    </ScrollView>
   );
-
 }
 
 const styles = StyleSheet.create({
@@ -57,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 120,   // extra to avoid overlap with FloatingMenu + bottom tabs
+    paddingBottom: 120, // extra to avoid overlap with FloatingMenu + bottom tabs
   },
   sections: {
     paddingHorizontal: 20,
